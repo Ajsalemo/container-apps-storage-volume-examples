@@ -12,7 +12,7 @@ export const readFileController = router.get("/", (_req, res) => {
 
   readFile(path, "utf-8", (err, data) => {
     if (err) return res.status(500).json({ error: err });
-    console.log(data)
+    
     res.json({ msg: data });
   });
 });

@@ -57,7 +57,7 @@ resource containerApp 'Microsoft.App/containerApps@2022-06-01-preview' = {
     environmentId: appEnvironment.id
     configuration: {
       ingress: {
-        targetPort: 3000
+        targetPort: 8000
         external: true
       }
       secrets: [
@@ -78,7 +78,7 @@ resource containerApp 'Microsoft.App/containerApps@2022-06-01-preview' = {
       containers: [
         {
           image: '${azureContainerRegistry}.azurecr.io/${azureContainerRegistryImage}:${azureContainerRegistryImageTag}'
-          name: 'node'
+          name: 'python'
           resources: {
             cpu: 1
             memory: '2Gi'

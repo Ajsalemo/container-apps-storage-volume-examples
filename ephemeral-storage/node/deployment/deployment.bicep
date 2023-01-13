@@ -85,8 +85,8 @@ resource containerApp 'Microsoft.App/containerApps@2022-06-01-preview' = {
           }
           volumeMounts: [
             {
-              mountPath: '/files'
-              volumeName: 'ephemeralMount'
+              mountPath: '/usr/src/app/files'
+              volumeName: 'ephemeralmount'
             }
           ]
         }
@@ -97,7 +97,7 @@ resource containerApp 'Microsoft.App/containerApps@2022-06-01-preview' = {
       }
       volumes: [
         {
-          name: 'ephemeralMount'
+          name: 'ephemeralmount'
           storageType: 'EmptyDir'
         }
       ]

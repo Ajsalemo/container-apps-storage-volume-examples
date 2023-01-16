@@ -57,7 +57,7 @@ resource containerApp 'Microsoft.App/containerApps@2022-06-01-preview' = {
     environmentId: appEnvironment.id
     configuration: {
       ingress: {
-        targetPort: 3000
+        targetPort: 80
         external: true
       }
       secrets: [
@@ -78,29 +78,17 @@ resource containerApp 'Microsoft.App/containerApps@2022-06-01-preview' = {
       containers: [
         {
           image: '${azureContainerRegistry}.azurecr.io/${azureContainerRegistryImage}:${azureContainerRegistryImageTag}'
-          name: 'node'
+          name: 'php'
           resources: {
             cpu: json('0.5')
             memory: '1Gi'
           }
-          volumeMounts: [
-            {
-              mountPath: '/usr/src/app/files'
-              volumeName: 'ephemeralmount'
-            }
-          ]
         }
       ]
       scale: {
         minReplicas: 1
         maxReplicas: 1
       }
-      volumes: [
-        {
-          name: 'ephemeralmount'
-          storageType: 'EmptyDir'
-        }
-      ]
     }
   }
 }

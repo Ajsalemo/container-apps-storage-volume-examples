@@ -16,12 +16,19 @@ spec:
     spec:
       containers:
       - name: php
-        image: containerappsstoragevolumeexamples-containerstart-php:latest
+        image: containerappsstoragevolumeexamples-ephemeral-storage-php:latest
         imagePullPolicy: IfNotPresent
+        volumeMounts:
+        - mountPath: /var/www/html/files
+          name: ephemeralmount
         ports:
         - containerPort: 80
         resources:
           limits:
             memory: "128Mi"
             cpu: "500m"
+      volumes:
+      - name: ephemeralmount
+        emptyDir:
+          sizeLimit: 1G
           

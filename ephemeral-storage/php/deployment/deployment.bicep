@@ -83,12 +83,24 @@ resource containerApp 'Microsoft.App/containerApps@2022-06-01-preview' = {
             cpu: json('0.5')
             memory: '1Gi'
           }
+          volumeMounts: [
+            {
+              mountPath: '/var/www/html/files'
+              volumeName: 'ephemeralmount'
+            }
+          ]
         }
       ]
       scale: {
         minReplicas: 1
         maxReplicas: 1
       }
+      volumes: [
+        {
+          name: 'ephemeralmount'
+          storageType: 'EmptyDir'
+        }
+      ]
     }
   }
 }

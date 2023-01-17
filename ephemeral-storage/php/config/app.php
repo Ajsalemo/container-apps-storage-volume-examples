@@ -120,8 +120,8 @@ return [
     | will not be safe. Please do this before deploying an application!
     |
     */
-
-    'key' => env('APP_KEY'),
+    // NOTE: For the sake of a runnable example, the Laravel secret key is hardcoded
+    'key' => 'base64:p9m60a6WViRosqWIzBtdZfbvelVCrEH4yen6cwPe2ZM=',
 
     'cipher' => 'AES-256-CBC',
 

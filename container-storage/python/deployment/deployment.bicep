@@ -80,8 +80,8 @@ resource containerApp 'Microsoft.App/containerApps@2022-06-01-preview' = {
           image: '${azureContainerRegistry}.azurecr.io/${azureContainerRegistryImage}:${azureContainerRegistryImageTag}'
           name: 'python'
           resources: {
-            cpu: 1
-            memory: '2Gi'
+            cpu: json('0.5')
+            memory: '1Gi'
           }
         }
       ]

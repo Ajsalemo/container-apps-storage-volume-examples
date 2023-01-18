@@ -1,0 +1,4 @@
+com\containerapps\azure\AzureApplication.class
+com\containerapps\azure\Controllers\HomeController.class
+com\containerapps\azure\Controllers\ReadFileController.class
+com\containerapps\azure\Controllers\WriteFileController.class

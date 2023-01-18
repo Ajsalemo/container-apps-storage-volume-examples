@@ -1,0 +1,34 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: node-deployment
+  labels:
+    app: node-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: node-app
+  template:
+    metadata:
+      labels:
+        app: node-app
+    spec:
+      containers:
+      - name: node
+        image: containerappsstoragevolumeexamples-node-eph:latest
+        imagePullPolicy: IfNotPresent
+        volumeMounts:
+        - mountPath: /usr/src/app/files
+          name: ephemeralmount
+        ports:
+        - containerPort: 3000
+        resources:
+          limits:
+            memory: "128Mi"
+            cpu: "500m"
+      volumes:
+      - name: ephemeralmount
+        emptyDir:
+          sizeLimit: 1G
+          

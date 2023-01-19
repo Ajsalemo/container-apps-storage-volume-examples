@@ -16,7 +16,9 @@ The following folders contains key items are the same under each parent folder:
 - `deployments`: Use the contents in this folder to deploy to Azure. This contains `deployment.bicep` - which is the Bicep file used to deploy the example, as well as `deployment-command.sh`, which is the command used to deploy the Bicep file.
 - `kubernetes`: This is for local development. For the `container-storage` and `ephemeral-storage` examples, this can be ran on a local cluster. There is no current local example for the `azure-files-examples`.
 
-
-
+## API routes
+Each example has two routes:
+- `/api/write` - Which creates a file with **[uid].txt** under a directory named `/files` (which will be local, ephemeral or mounted with Azure Files on Container Apps)
+- `/api/read` - Which will read from a file named `file.txt` under a directory named `/files`. This is for the local and ephemeral examples. For the Azure Files example, you will need to create a file named `file.txt` on the share.
 
   

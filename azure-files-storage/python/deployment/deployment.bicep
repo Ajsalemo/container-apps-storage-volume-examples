@@ -2,6 +2,10 @@ param environmentName string
 param logAnalyticsWorkspaceName string
 param appInsightsName string
 param containerAppName string 
+param azureStorageAccountName string
+@secure()
+param azureFilesAccountKey string
+param azureFilesShareName string
 param azureContainerRegistry string
 param azureContainerRegistryImage string 
 param azureContainerRegistryImageTag string
@@ -48,6 +52,18 @@ resource appEnvironment 'Microsoft.App/managedEnvironments@2022-06-01-preview' =
       }
     }
   }
+
+  resource storage 'storages@2022-06-01-preview' = {
+    name: 'azurefiles'
+    properties: {
+      azureFile: {
+        accountName: azureStorageAccountName
+        accountKey: azureFilesAccountKey
+        accessMode: 'ReadWrite'
+        shareName: azureFilesShareName
+      }
+    }
+  }
 }
 
 resource containerApp 'Microsoft.App/containerApps@2022-06-01-preview' = {
@@ -86,7 +102,8 @@ resource containerApp 'Microsoft.App/containerApps@2022-06-01-preview' = {
           volumeMounts: [
             {
               mountPath: '/usr/src/app/files'
-              volumeName: 'ephemeralmount'
+              // This volumeName should reference the 'volumes' name below
+              volumeName: 'azurefilesmount'
             }
           ]
         }
@@ -97,8 +114,10 @@ resource containerApp 'Microsoft.App/containerApps@2022-06-01-preview' = {
       }
       volumes: [
         {
-          name: 'ephemeralmount'
-          storageType: 'EmptyDir'
+          name: 'azurefilesmount'
+          storageType: 'AzureFile'
+          // This 'storageName' should reference the storage resource created in the managed environment resource (above)
+          storageName: 'azurefiles'
         }
       ]
     }
